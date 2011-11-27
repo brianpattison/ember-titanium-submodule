@@ -121,10 +121,30 @@ if (RUN_TESTS) {
     window: win3
   });
 
+  var win4 = SCTi.Window.create({
+    title: 'TableView',
+    backgroundColor: 'white'
+  });
+  var tab4 = SCTi.Tab.create({
+    titleBinding: "window.title",
+    window: win4
+  });
+  
+  var tableView = SCTi.TableView.create({
+    content: [
+      SC.Object.create({title: "Row 1"}),
+      SC.Object.create({title: "Row 2"})
+    ]
+  });
+  win4.add(tableView);
+  
+  tableView.content.pushObject(SC.Object.create({title: "Row 3"}));
+
   //  add tabs
   tabGroup.add(tab1);
   tabGroup.add(tab2);
   tabGroup.add(tab3);
+  tabGroup.add(tab4);
 
   // open tab group
   tabGroup.open();
