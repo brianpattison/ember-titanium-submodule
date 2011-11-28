@@ -1,7 +1,7 @@
 var window = this;
 Ti.include('/lib/sc_ti.js');
 
-var RUN_TESTS = false;
+var RUN_TESTS = true;
 
 if (RUN_TESTS) {
   Ti.include('/tests/tests.js');
