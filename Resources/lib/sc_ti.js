@@ -503,48 +503,50 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
   
   SCTi.CollectionView = SCTi.Object.extend({
     tiOptions: "layout".w(),
-    
+
     layout: "vertical",
     content: [],
     childViews: [],
     itemViewClass: SCTi.View,
-    
+
     init: function() {
       var content = get(this, 'content');
-      
+
       this._super();
-      
+
       this.contentDidChange(); // to set childViews array
       content.addArrayObserver(this);
     },
-    
+
     contentWillChange: function() {
       var content = get(this, 'content');
       console.log('contentWillChange');
-      content.removeArrayObserver(this);
+      if (!SC.none(content)) {
+        content.removeArrayObserver(this);
+      }
     }.observesBefore('content'),
-    
+
     contentDidChange: function() {
       var self = this, content = get(this, 'content'), childViews = get(this, 'childViews'), itemViewClass = get(this, 'itemViewClass');
       console.log('contentDidChange');
       childViews.splice(0, childViews.length);
-      if (get(content, 'length')) {
+      if (!SC.none(content) && get(content, 'length')) {
         content.forEach(function(el) {
           var row = self.createChildView(itemViewClass, {content: el, titleBinding: "content.title"});
           childViews.push(row);
         });
       }
     }.observes('content'),
-    
+
     arrayWillChange: function(content, startIdx, removedCount, addedCount) {
       var childViews = get(this, 'childViews');
       console.log('arrayWillChange', arguments);
-      
+
       if (removedCount) {
         childViews.splice(startIdx, startIdx+removedCount-1);
       }
     },
-    
+
     arrayDidChange: function(content, startIdx, removedCount, addedCount) {
       var self = this, childViews = get(this, 'childViews'), itemViewClass = get(this, 'itemViewClass');
       console.log('arrayDidChange', arguments);
@@ -555,25 +557,25 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
         });
       }
     },
-    
+
     createChildView: function(viewClass, attrs) {
       // attrs.height = attrs.height || "30";
       return viewClass.create(attrs);
     },
-    
+
     createTiObject: function(options) {
       return Ti.UI.createView(options);
     },
-    
+
     addChildView: function(tiObject, childView) {
       tiObject.add(get(childView, 'tiObject'));
     },
-    
+
     render: function() {
       var tiObject = this.createObject(), childViews = get(this, 'childViews');
-      
+
       if (get(this, 'isRendered')) { return this; }
-      
+
       this._super();
 
       for (var i = 0; i < childViews.length; i++) {
@@ -581,20 +583,54 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
         childView.render();
         this.addChildView(tiObject, childView);
       }
-      
+
       return this;
     }
   });
   
   SCTi.TableViewRow = SCTi.View.extend({
-    tiOptions: "title".w(),
+    tiOptions: "className color hasCheck hasChild hasDetail indentionLevel layout leftImage rightImage selectedBackgroundColor selectedBackgroundImage selectedColor selectionStyle title".w(),
     
     createTiObject: function(options) {
       return Ti.UI.createTableViewRow(options);
+    },
+    
+    createObservers: function() {
+      var self = this, tiOptions = get(this, 'tiOptions'), content = get(this, 'content');
+      
+      tiOptions.forEach(function(optionName) {
+        var observer = function() {
+          var tiObject = get(self, 'tiObject');
+          var currentValue = tiObject[optionName], newValue = get(content, optionName);
+
+          if (newValue !== undefined && newValue !== null && newValue !== currentValue) {
+            tiObject[optionName] = newValue;
+          }
+        };
+
+        SC.addObserver(content, optionName, observer);
+      });
+    },
+    
+    getTiOptionValue: function(optionName) {
+      var tiOptionName = optionName, content = get(this, 'content'), translatedOptionName, splitOptionNames, val;
+      
+      if (optionName.indexOf(':') !== -1) {
+        splitOptionNames = optionName.split(':');
+        tiOptionName = splitOptionNames[0];
+        translatedOptionName = splitOptionNames[1];
+        val = get(content, translatedOptionName);
+      } else {
+        val = get(content, tiOptionName);
+      }
+      
+      return val;      
     }
   });
   
   SCTi.TableView = SCTi.CollectionView.extend({
+    tiOptions: 'allowsSelection allowsSelectionDuringEditing anchorPoint animatedCenterPoint backgroundColor backgroundDisabledColor backgroundDisabledImage backgroundFocusedColor backgroundFocusedImage backgroundGradient backgroundImage backgroundLeftCap backgroundSelectedColor backgroundSelectedImage backgroundTopCap borderColor borderRadius borderWidth bottom center data editable editing filterAttribute filterCaseInsensitive focusable font-family font-size font-style font-weight footerTitle footerView headerTitle headerView height index left maxRowHeight minRowHeight moving opacity right rowHeight scrollable search searchHidden separatorColor separatorStyle showVerticalScrollIndicator size softKeyboardOnFocus style top touchEnabled transform visible width zIndex'.w(),
+    tiEvents: 'click dblclick delete doubletap move scroll scrollEnd singletap swipe touchcancel touchend touchmove touchstart twofingertap'.w(),
     itemViewClass: SCTi.TableViewRow,
     
     createTiObject: function(options) {
@@ -603,6 +639,67 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     
     addChildView: function(tiObject, childView) {
       tiObject.appendRow(get(childView, 'tiObject'));
+    },
+    
+    contentDidChange: function() {
+      var self = this, content = get(this, 'content'), childViews = get(this, 'childViews'), itemViewClass = get(this, 'itemViewClass'), tiObject = get(this, 'tiObject'), renderedRows = [];
+      console.log('contentDidChange');
+      childViews.splice(0, childViews.length);
+      if (!SC.none(content) && get(content, 'length')) {
+        content.forEach(function(el, idx) {
+          if (get(self, 'isRendered')) {
+            var renderedRow = self.createChildView(itemViewClass, {content: el}).render();
+            renderedRows.push(get(renderedRow, 'tiObject'));
+          } else {
+            var row = self.createChildView(itemViewClass, {content: el});
+            childViews.push(row);
+          }
+        });
+      }
+      if (get(this, 'isRendered')) {
+        tiObject.setData(renderedRows);
+      }
+    }.observes('content'),
+    
+    arrayWillChange: function(content, startIdx, removedCount, addedCount) {
+      var childViews = get(this, 'childViews');
+      console.log('arrayWillChange', arguments);
+
+      if (removedCount) {
+        if (get(this, 'isRendered')) {
+          var tiObject = get(this, 'tiObject');
+          for (var i = 0; i < removedCount; i++) {
+            tiObject.deleteRow(startIdx);
+          }
+        } else {
+          childViews.splice(startIdx, removedCount);
+        }
+      }
+    },
+    
+    arrayDidChange: function(content, startIdx, removedCount, addedCount) {
+      var self = this, childViews = get(this, 'childViews'), itemViewClass = get(this, 'itemViewClass');
+      console.log('arrayDidChange', arguments);
+
+      if (addedCount) {
+        content.slice(startIdx, startIdx+addedCount).forEach(function(el) {
+          if (get(self, 'isRendered')) {
+            var tiObject = get(self, 'tiObject'), renderedRow = self.createChildView(itemViewClass, {content: el}).render();
+            if (content.length === 1) {
+              tiObject.appendRow(get(renderedRow, 'tiObject'));
+            } else {
+              var insertAt = startIdx - 1;
+              if (insertAt >= 0) {
+                tiObject.insertRowAfter(insertAt, get(renderedRow, 'tiObject'));
+              } else {
+                tiObject.insertRowBefore(startIdx, get(renderedRow, 'tiObject'));
+              }
+            }
+          } else {
+            childViews.insertAt(startIdx, self.createChildView(itemViewClass, {content: el}));
+          }
+        });
+      }
     }
   });
 

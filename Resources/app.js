@@ -1,7 +1,7 @@
 var window = this;
 Ti.include('/lib/sc_ti.js');
 
-var RUN_TESTS = true;
+var RUN_TESTS = false;
 
 if (RUN_TESTS) {
   Ti.include('/tests/tests.js');
@@ -130,16 +130,50 @@ if (RUN_TESTS) {
     window: win4
   });
   
+  var testRow1 = SC.Object.create({
+    firstName: 'Aaron',
+    lastName: 'Rodgers',
+    
+    hasChild: function() {
+      if (this.get('lastName') === 'Rodgers') {
+        return true;
+      } else {
+        return false;
+      }
+    }.property('lastName'),
+    
+    title: function() {
+      return 'Row 3 - ' + this.get('firstName') + ' ' + this.get('lastName');
+    }.property('firstName', 'lastName')
+  });
+  
+  var testRow2 = SC.Object.create({title: "Row 4"});
+  
   var tableView = SCTi.TableView.create({
     content: [
       SC.Object.create({title: "Row 1"}),
-      SC.Object.create({title: "Row 2"})
+      SC.Object.create({title: "Row 2"}),
+      testRow1,
+      testRow2,
+      SC.Object.create({title: "Row 5"})
     ]
   });
   win4.add(tableView);
   
-  tableView.content.pushObject(SC.Object.create({title: "Row 3"}));
-
+  tableView.content.pushObjects([
+    SC.Object.create({title: "Row 6"}),
+    SC.Object.create({title: "Row 7"})
+  ]);
+  
+  tableView.content.removeAt(4, 2);
+  
+  // Testing adding/removing rows after tableView has been rendered
+  setTimeout(function() {
+    tableView.content.pushObjects([SC.Object.create({title: "Row 1"}), SC.Object.create({title: "Row 2"})]);
+    tableView.content.removeObject(testRow2);
+    testRow1.set('firstName', 'Clay').set('lastName', 'Matthews');
+  }, 5000);
+  
   //  add tabs
   tabGroup.add(tab1);
   tabGroup.add(tab2);
