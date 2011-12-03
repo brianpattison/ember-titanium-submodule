@@ -593,38 +593,6 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     
     createTiObject: function(options) {
       return Ti.UI.createTableViewRow(options);
-    },
-    
-    createObservers: function() {
-      var self = this, tiOptions = get(this, 'tiOptions'), content = get(this, 'content');
-      
-      tiOptions.forEach(function(optionName) {
-        var observer = function() {
-          var tiObject = get(self, 'tiObject');
-          var currentValue = tiObject[optionName], newValue = get(content, optionName);
-
-          if (newValue !== undefined && newValue !== null && newValue !== currentValue) {
-            tiObject[optionName] = newValue;
-          }
-        };
-
-        SC.addObserver(content, optionName, observer);
-      });
-    },
-    
-    getTiOptionValue: function(optionName) {
-      var tiOptionName = optionName, content = get(this, 'content'), translatedOptionName, splitOptionNames, val;
-      
-      if (optionName.indexOf(':') !== -1) {
-        splitOptionNames = optionName.split(':');
-        tiOptionName = splitOptionNames[0];
-        translatedOptionName = splitOptionNames[1];
-        val = get(content, translatedOptionName);
-      } else {
-        val = get(content, tiOptionName);
-      }
-      
-      return val;      
     }
   });
   

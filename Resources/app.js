@@ -142,34 +142,36 @@ if (RUN_TESTS) {
       }
     }.property('lastName'),
     
-    title: function() {
-      return 'Row 3 - ' + this.get('firstName') + ' ' + this.get('lastName');
+    name: function() {
+      return this.get('firstName') + ' ' + this.get('lastName');
     }.property('firstName', 'lastName')
   });
   
-  var testRow2 = SC.Object.create({title: "Row 4"});
+  var testRow2 = SC.Object.create({name: "Martha Anderson"});
   
   var tableView = SCTi.TableView.create({
+    itemViewClass: SCTi.TableViewRow.extend({titleBinding: 'content.name', hasChildBinding: 'content.hasChild'}),
+    
     content: [
-      SC.Object.create({title: "Row 1"}),
-      SC.Object.create({title: "Row 2"}),
+      SC.Object.create({name: "David Talley"}),
+      SC.Object.create({name: "Eva Harris"}),
       testRow1,
       testRow2,
-      SC.Object.create({title: "Row 5"})
+      SC.Object.create({name: "Edwin Miles"})
     ]
   });
   win4.add(tableView);
   
   tableView.content.pushObjects([
-    SC.Object.create({title: "Row 6"}),
-    SC.Object.create({title: "Row 7"})
+    SC.Object.create({name: "Elizabeth Walton"}),
+    SC.Object.create({name: "John Meyers"})
   ]);
   
   tableView.content.removeAt(4, 2);
   
   // Testing adding/removing rows after tableView has been rendered
   setTimeout(function() {
-    tableView.content.pushObjects([SC.Object.create({title: "Row 1"}), SC.Object.create({title: "Row 2"})]);
+    tableView.content.pushObjects([SC.Object.create({name: "Joyce E. Ward"}), SC.Object.create({name: "Gerald Jaime"})]);
     tableView.content.removeObject(testRow2);
     testRow1.set('firstName', 'Clay').set('lastName', 'Matthews');
   }, 5000);
