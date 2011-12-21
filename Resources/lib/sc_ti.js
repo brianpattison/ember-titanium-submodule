@@ -178,7 +178,7 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
         val = get(this, tiOptionName);
       }
       
-      if (val === null && optionName === 'zIndex') {
+      if (optionName === 'zIndex' && SC.none(val)) {
         val = 0;
       }
       
@@ -228,7 +228,11 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
           var tiObject = get(this, 'tiObject');
           var currentValue = tiObject[optionName], newValue = get(this, optionName);
 
-          if (newValue !== undefined && newValue !== null && newValue !== currentValue) {
+          if (optionName === 'zIndex' && SC.none(newValue)) {
+            newValue = 0;
+          }
+
+          if (newValue !== currentValue) {
             tiObject[optionName] = newValue;
           }
         };
