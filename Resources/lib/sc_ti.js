@@ -437,6 +437,11 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
     
     createTiObject: function(options) {
       return Ti.UI.createTextArea(options);
+    },
+    
+    change: function() {
+      var self = this, tiObject = get(this, 'tiObject');
+      set(self, 'value', tiObject.value);
     }
   });
   
