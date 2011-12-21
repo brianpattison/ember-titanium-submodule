@@ -178,6 +178,10 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
         val = get(this, tiOptionName);
       }
       
+      if (val === null && optionName === 'zIndex') {
+        val = 0;
+      }
+      
       return val;      
     },
     
@@ -186,8 +190,8 @@ queues.insertAt(queues.indexOf('actions')+1, 'render');
 
       tiOptions.forEach(function(optionName) {
         var val = self.getTiOptionValue(optionName);
-        
-        if (val !== undefined && val !== null) {
+
+        if (val !== undefined) {
           callback.call(this, optionName);
         }
       });
