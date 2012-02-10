@@ -6,8 +6,12 @@ var TabGroup = View.extend(Openable, {
   tiEvents: 'blur close:closed focus open:opened'.w(),
   
   addChildView: function(tiObject, childView) {
-    childView.set('parentView', this);
-    tiObject.addTab(childView.get('tiObject'));
+    if (childView instanceof View) {
+      childView.set('parentView', this);
+      tiObject.addTab(childView.get('tiObject'));
+    } else {
+      tiObject.addTab(childView);
+    }
   },
 
   createTiObject: function(options) {

@@ -1,10 +1,8 @@
-var EmTi = Ember = require('/lib/em_ti/em_ti');
-
-var otherWindow = EmTi.Window.create({
+var otherWindow = Ti.UI.createWindow({
   backgroundColor: '#fff',
   title: 'Tab 2'
 });
-var otherLabel = EmTi.Label.create({
+var otherLabel = Ti.UI.createLabel({
 	color: '#999',
 	font: {fontSize: 20},
 	text: 'Window 2',
@@ -12,7 +10,7 @@ var otherLabel = EmTi.Label.create({
 	width: 'auto'
 });
 otherWindow.add(otherLabel);
-var otherTab = EmTi.Tab.create({
+var otherTab = Ti.UI.createTab({
     icon: 'KS_nav_ui.png',
     title: 'Tab 2',
     window: otherWindow

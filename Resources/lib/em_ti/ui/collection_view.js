@@ -64,8 +64,12 @@ var CollectionView = Wrapper.extend({
   },
 
   addChildView: function(tiObject, childView) {
-    childView.set('parentView', this);
-    tiObject.add(childView.get('tiObject'));
+    if (childView instanceof Wrapper) {
+      childView.set('parentView', this);
+      tiObject.add(childView.get('tiObject'));
+    } else {
+      tiObject.add(childView);
+    }
   },
 
   render: function() {

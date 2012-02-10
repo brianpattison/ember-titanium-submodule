@@ -11,8 +11,12 @@ var TableView = CollectionView.extend({
   },
 
   addChildView: function(tiObject, childView) {
-    childView.set('parentView', this);
-    tiObject.appendRow(childView.get('tiObject'));
+    if (childView instanceof TableViewRow) {
+      childView.set('parentView', this);
+      tiObject.appendRow(childView.get('tiObject'));
+    } else {
+      tiObject.appendRow(childView);
+    }
   },
 
   contentDidChange: function() {
