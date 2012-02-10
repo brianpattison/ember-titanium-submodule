@@ -1,4 +1,5 @@
 (function() {
+  var EmTi = Ember = require('/lib/em_ti/em_ti');
   EmTi.Animatable = require('/lib/em_ti/mixins/animatable');
   EmTi.Focusable  = require('/lib/em_ti/mixins/focusable');
   EmTi.Hideable   = require('/lib/em_ti/mixins/hideable');

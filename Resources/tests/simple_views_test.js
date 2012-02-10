@@ -1,4 +1,6 @@
 (function() {
+  var EmTi = Ember = require('/lib/em_ti/em_ti');
+  
   describe("EmTi.Window", function() {
     it("should be defined", function() {
       expect(EmTi.Window).toBeDefined();

@@ -1,4 +1,5 @@
 (function() {
+  var EmTi = Ember = require('/lib/em_ti/em_ti');
   EmTi.Wrapper = require('/lib/em_ti/ui/wrapper');
   
   describe("EmTi.View", function() {
