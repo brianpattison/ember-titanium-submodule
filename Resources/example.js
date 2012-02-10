@@ -4,10 +4,9 @@ var Example = Ember.Application.create({
   isLoading: false,
   
   start: function() {
-    var self = this;
-    self.setupModels();
-    self.setupControllers();
-    self.setupViews();
+    this.setupModels();
+    this.setupControllers();
+    this.setupViews();
   },
   
   setupModels: function() {
@@ -15,8 +14,7 @@ var Example = Ember.Application.create({
   },
   
   setupControllers: function() {
-    var self = this;
-    self.tweetsController = require('/controllers/tweets_controller');
+    this.tweetsController = require('/controllers/tweets_controller');
   },
   
   setupViews: function() {
@@ -24,7 +22,7 @@ var Example = Ember.Application.create({
     
     Titanium.UI.setBackgroundColor('#fff');
     
-    self.tabGroup = EmTi.TabGroup.create({
+    var tabGroup = EmTi.TabGroup.create({
       opened: function() {
         self.set('isLoading', true);
         self.tweetsController.loadTweets(function(data) {
@@ -32,11 +30,11 @@ var Example = Ember.Application.create({
         });
       }
     });
-    self.twitterTab = require('/views/twitter_tab');
-    self.otherTab   = require('/views/other_tab');
-    self.tabGroup.add(self.twitterTab);
-    self.tabGroup.add(self.otherTab);
-    self.tabGroup.open();
+    var twitterTab = require('/views/twitter_tab');
+    var otherTab   = require('/views/other_tab');
+    tabGroup.add(twitterTab);
+    tabGroup.add(otherTab);
+    tabGroup.open();
   },
   
   isLoadingDidChange: function() {
