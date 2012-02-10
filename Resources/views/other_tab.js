@@ -1,3 +1,4 @@
+// No EmTi needed, so it's not used here
 var otherWindow = Ti.UI.createWindow({
   backgroundColor: '#fff',
   title: 'Tab 2'

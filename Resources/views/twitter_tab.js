@@ -1,3 +1,4 @@
+// Here we want bindings, so we're using EmTi
 var EmTi = Ember = require('/lib/em_ti/em_ti');
 
 var twitterWindow = EmTi.Window.create({

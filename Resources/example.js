@@ -1,3 +1,4 @@
+// A mix of EmTi and straight Titanium is used as needed in this app
 var EmTi = Ember = require('/lib/em_ti/em_ti');
 
 var Example = Ember.Application.create({

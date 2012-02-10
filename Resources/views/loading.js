@@ -1,3 +1,4 @@
+// No EmTi needed, so it's not used here
 var loadingWindow = Ti.UI.createWindow({
   bottom: 49,
   height: 48,
