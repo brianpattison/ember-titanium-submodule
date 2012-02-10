@@ -1,0 +1,33 @@
+var Constants = {
+  AUTOCAPITALIZATION_CONSTANTS: {
+    all: Ti.UI.TEXT_AUTOCAPITALIZATION_ALL,
+    none: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+    sentences: Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES,
+    words: Ti.UI.TEXT_AUTOCAPITALIZATION_WORDS
+  },
+  KEYBOARD_TYPE_CONSTANTS: {
+    ascii: Ti.UI.KEYBOARD_ASCII,
+    'default': Ti.UI.KEYBOARD_DEFAULT,
+    email: Ti.UI.KEYBOARD_EMAIL,
+    alphanumeric: Ti.UI.KEYBOARD_NAMEPHONE_PAD,
+    numbers_punctuation: Ti.UI.KEYBOARD_NUMBERS_PUNCTUATION,
+    numbers: Ti.UI.KEYBOARD_NUMBER_PAD,
+    phone: Ti.UI.KEYBOARD_PHONE_PAD,
+    url: Ti.UI.KEYBOARD_URL
+  },
+  RETURNKEY_CONSTANTS: {
+    'default': Ti.UI.RETURNKEY_DEFAULT,
+    done: Ti.UI.RETURNKEY_DONE,
+    emergency_call: Ti.UI.RETURNKEY_EMERGENCY_CALL,
+    go: Ti.UI.RETURNKEY_GO,
+    google: Ti.UI.RETURNKEY_GOOGLE,
+    join: Ti.UI.RETURNKEY_JOIN,
+    next: Ti.UI.RETURNKEY_NEXT,
+    route: Ti.UI.RETURNKEY_ROUTE,
+    search: Ti.UI.RETURNKEY_SEARCH,
+    send: Ti.UI.RETURNKEY_SEND,
+    yahoo: Ti.UI.RETURNKEY_YAHOO
+  }
+}
+
+module.exports = Constants;

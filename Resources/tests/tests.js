@@ -2,20 +2,17 @@
   Ti.include('/tests/lib/jasmine-1.0.2.js');
   Ti.include('/tests/lib/jasmine-titanium.js');
   
-  describe("SCTi", function() {
-    it("namespace should be defined", function() {
-      expect(SCTi).toBeDefined();
-    });
+  var EmTi = Ember = require('/lib/em_ti/em_ti');
   
-    
-    
-    
+  describe("EmTi", function() {
+    it("namespace should be defined", function() {
+      expect(EmTi).toBeDefined();
+    });
   });
   
   Ti.include('/tests/view_test.js');
   Ti.include('/tests/simple_views_test.js');
   Ti.include('/tests/mixins.js');
-  Ti.include('/tests/collection_view_test.js');
     
   jasmine.getEnv().addReporter(new jasmine.TitaniumReporter());
   jasmine.getEnv().execute();
