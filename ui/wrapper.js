@@ -109,8 +109,10 @@ var Wrapper = Ember.Object.extend({
         optionVal = optionVal.create();
       }
       if (optionVal instanceof Wrapper) {
+        // This is only for Tabs (I think), so set the tab as the parent view of the window
+        optionVal.set('parentView', this);
         optionVal.render();
-        tiObjectOptions[tiOptionName] = optionVal.get('tiObject'); 
+        tiObjectOptions[tiOptionName] = optionVal.get('tiObject');
       } else {
         tiObjectOptions[tiOptionName] = optionVal;
       }
