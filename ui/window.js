@@ -7,6 +7,26 @@ var Window = View.extend(Openable, {
   
   createTiObject: function(options) {
     return Ti.UI.createWindow(options);
+  },
+  
+  setLeftNavButton: function(button) {
+    if (button instanceof View) {
+      button.render();
+      button = button.get('tiObject');
+    }
+    this.render();
+    this.get('tiObject').setLeftNavButton(button, { animated: false });
+    return this;
+  },
+  
+  setRightNavButton: function(button) {
+    if (button instanceof View) {
+      button.render();
+      button = button.get('tiObject');
+    }
+    this.render();
+    this.get('tiObject').setRightNavButton(button, { animated: false });
+    return this;
   }
 });
 
