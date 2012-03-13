@@ -10,7 +10,7 @@ var Hideable = Ember.Mixin.create({
   
   show: function() {
     this.render();
-    this.get('tiObject').shosplit(' ');
+    this.get('tiObject').show();
     
     return this;
   }
