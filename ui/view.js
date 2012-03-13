@@ -66,6 +66,19 @@ var View = Wrapper.extend(Animatable, Hideable, {
     this.set('childViews', childViewInstances);
 
     return this;
+  },
+  
+  destroy: function() {
+    var self = this;
+    if (this.get('isRendered')) {
+      var childViews = this.get('childViews');
+      childViews.forEach(function(view) {
+        self.get('tiObject').remove(view.get('tiObject'));
+        view.destroy();
+      });
+      this.set('tiObject', null);
+    }
+    this._super();
   }
 });
 
