@@ -18,6 +18,19 @@ var TableView = CollectionView.extend({
       tiObject.appendRow(childView);
     }
   },
+  
+  createChildView: function(viewClass, attrs) {
+    // Create the row bound to the content and save it to the
+    // content object so it doesn't have to be recreated when sorting data
+    if (attrs.content.get('cachedRow')) {
+      return attrs.content.get('cachedRow');
+    } else {
+      var row = this._super(viewClass, attrs);
+      row.set('parentView', this);
+      attrs.content.set('cachedRow', row);
+      return row;
+    }
+  },
 
   contentDidChange: function() {
     var self = this, content = this.get('content'), childViews = this.get('childViews'), itemViewClass = this.get('itemViewClass'), tiObject = this.get('tiObject'), renderedRows = [];

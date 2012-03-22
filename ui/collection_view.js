@@ -55,7 +55,6 @@ var CollectionView = Wrapper.extend({
   },
 
   createChildView: function(viewClass, attrs) {
-    // attrs.height = attrs.height || "30";
     return viewClass.create(attrs);
   },
 
