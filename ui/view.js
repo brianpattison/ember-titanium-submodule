@@ -73,10 +73,13 @@ var View = Wrapper.extend(Animatable, Hideable, {
     if (this.get('isRendered')) {
       var childViews = this.get('childViews');
       childViews.forEach(function(view) {
-        self.get('tiObject').remove(view.get('tiObject'));
         view.destroy();
       });
-      this.set('tiObject', null);
+      var parentView = this.getPath('parentView.tiObject'), tiObject = this.get('tiObject');
+      if (parentView !== undefined && parentView !== null && tiObject !== undefined && tiObject !== null) {
+        parentView.remove(tiObject);
+        this.set('tiObject', null);
+      }
     }
     this._super();
   }
