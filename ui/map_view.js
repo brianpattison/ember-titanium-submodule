@@ -18,6 +18,13 @@ var MapView = View.extend({
   createTiObject: function(options) {
     return Ti.Map.createView(options);
   },
+  
+  selectAnnotation: function(emtiAnnotation) {
+    this.render();
+    emtiAnnotation.render();
+    var tiObject = this.get('tiObject');
+    tiObject.selectAnnotation(emtiAnnotation.get('tiObject'));
+  },
     
   zoom: function(level) {
     this.render();
