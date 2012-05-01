@@ -1,9 +1,9 @@
 var View = require('/lib/em_ti/ui/view');
 
 var WebView = View.extend({
-  tiOptions: 'data html loading scalesPageToFit url'.w(),
-  tiEvents: 'beforeload error load'.w(),
-  tiNotNullable: 'url'.w(),
+  tiOptions: 'data html loading scalesPageToFit url'.split(' '),
+  tiEvents: 'beforeload error load'.split(' '),
+  tiNotNullable: 'url'.split(' '),
 
   createTiObject: function(options) {
     return Ti.UI.createWebView(options);
