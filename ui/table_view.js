@@ -20,7 +20,7 @@ var TableView = View.extend({
   
   contentDidChange: function() {
     var content = this.get('content'), tiObject = this.get('tiObject'), rows = [];
-    if (!Ember.empty(content) && this.get('isRendered')) {
+    if (!Ember.empty(content)) {
       for (var i = 0; i < content.length; i++) {
         var item = content[i];
         if (!Ember.none(item) && item instanceof Ember.Object) {

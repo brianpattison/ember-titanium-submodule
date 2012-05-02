@@ -27,18 +27,16 @@ var Window = View.extend(Openable, {
   
   destroy: function() {
     var self = this;
-    if (this.get('isRendered')) {
-      var childViews = this.get('childViews');
-      childViews.forEach(function(view) {
-        view.destroy();
-      });
-      // Don't try to remove a window from a parent view
-      // var parentView = this.getPath('parentView.tiObject');
-      // if (parentView !== undefined && parentView !== null) {
-      //   parentView.remove(this.get('tiObject'));
-      // }
-      this.set('tiObject', null);
-    }
+    var childViews = this.get('childViews');
+    childViews.forEach(function(view) {
+      view.destroy();
+    });
+    // Don't try to remove a window from a parent view
+    // var parentView = this.getPath('parentView.tiObject');
+    // if (parentView !== undefined && parentView !== null) {
+    //   parentView.remove(this.get('tiObject'));
+    // }
+    this.set('tiObject', null);
     this._super();
   }
 });
