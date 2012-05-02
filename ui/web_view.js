@@ -10,7 +10,8 @@ var WebView = View.extend({
   },
 
   evalJS: function(str) {
-    return this.get('tiObject').evalJS(str);
+    this.get('tiObject').evalJS(str);
+    return this;
   }
 });
 

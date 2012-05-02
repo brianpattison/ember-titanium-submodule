@@ -1,7 +1,6 @@
 var Ember = require('/lib/em_ti/ember-runtime');
 
 var Wrapper = Ember.Object.extend({
-  tiObject: null,
   tiOptions: [],
   tiEvents: [],
   tiConstantMappings: {},
@@ -23,30 +22,18 @@ var Wrapper = Ember.Object.extend({
     return this;
   },
   
-  createObject: function() {
-    var tiObject = this.get('tiObject');
-    
-    if (!tiObject) {
-      var tiObject = this.createTiObject(this.optionsForTiObject());
-      this.set('tiObject', tiObject);
-      this.createObservers();
-    }
-     
+  createObject: function(force) {
+    var tiObject = this.createTiObject(this.optionsForTiObject());
+    this.set('tiObject', tiObject);
+    this.createObservers();
     return tiObject;
   },
   
   render: function() {
     var tiObject = this.createObject();
-    
-    if (this.get('isRendered')) { return this; }
-    
     Ember.run.sync(); // FIXME: is this okay?
-    
     this.registerEvents();
-    
-    this.set('isRendered', true);
-    
-    return this;
+    return tiObject;
   },
   
   registerEvents: function() {
@@ -111,7 +98,6 @@ var Wrapper = Ember.Object.extend({
       if (optionVal instanceof Wrapper) {
         // This is only for Tabs (I think), so set the tab as the parent view of the window
         optionVal.set('parentView', this);
-        optionVal.render();
         tiObjectOptions[tiOptionName] = optionVal.get('tiObject');
       } else {
         tiObjectOptions[tiOptionName] = optionVal;
@@ -151,19 +137,23 @@ var Wrapper = Ember.Object.extend({
   },
   
   unknownProperty: function(key, value) {
-    var isConstant = /^.+Constant$/.test(key), propertyName, constantMap, ret;
-    
-    if (isConstant) {
-      propertyName = key.slice(0,-8);
-      constantMap = this.get('tiConstantMappings')[propertyName];
-      if (constantMap) {
-        ret = constantMap[this.get(propertyName)];
+    if (key === 'tiObject') {
+      return this.render();
+    } else {
+      var isConstant = /^.+Constant$/.test(key), propertyName, constantMap, ret;
+
+      if (isConstant) {
+        propertyName = key.slice(0,-8);
+        constantMap = this.get('tiConstantMappings')[propertyName];
+        if (constantMap) {
+          ret = constantMap[this.get(propertyName)];
+        }
+
+        ret = ret || this.get(propertyName);
       }
       
-      ret = ret || this.get(propertyName);
+      return ret;
     }
-    
-    return ret;
   }
 });
 

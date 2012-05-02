@@ -20,16 +20,12 @@ var MapView = View.extend({
   },
   
   selectAnnotation: function(emtiAnnotation) {
-    this.render();
-    emtiAnnotation.render();
-    var tiObject = this.get('tiObject');
-    tiObject.selectAnnotation(emtiAnnotation.get('tiObject'));
+    this.get('tiObject').selectAnnotation(emtiAnnotation.get('tiObject'));
+    return this;
   },
     
   zoom: function(level) {
-    this.render();
     this.get('tiObject').zoom(level);
-    
     return this;
   }
 });

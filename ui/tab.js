@@ -7,10 +7,8 @@ var Tab = View.extend({
     return Ti.UI.createTab(options);
   },
 
-  open: function(scWindow) {
-    this.render();
-    scWindow.render();
-    this.get('tiObject').open(scWindow.get('tiObject'));
+  open: function(win) {
+    this.get('tiObject').open(win.get('tiObject'));
     return this;
   }
 });

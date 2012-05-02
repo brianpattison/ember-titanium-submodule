@@ -11,20 +11,16 @@ var Window = View.extend(Openable, {
   
   setLeftNavButton: function(button, options) {
     if (button instanceof View) {
-      button.render();
       button = button.get('tiObject');
     }
-    this.render();
     this.get('tiObject').setLeftNavButton(button, options);
     return this;
   },
   
   setRightNavButton: function(button, options) {
     if (button instanceof View) {
-      button.render();
       button = button.get('tiObject');
     }
-    this.render();
     this.get('tiObject').setRightNavButton(button, options);
     return this;
   },

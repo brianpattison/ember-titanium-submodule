@@ -19,9 +19,7 @@ var TabGroup = View.extend(Openable, {
   },
   
   setActiveTab: function(tabIndex) {
-    this.render();
     this.get('tiObject').setActiveTab(tabIndex);
-    
     return this;
   }
 });

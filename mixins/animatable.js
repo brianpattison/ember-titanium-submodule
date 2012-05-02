@@ -1,11 +1,8 @@
 var Ember = require('/lib/em_ti/ember-runtime');
 
 var Animatable = Ember.Mixin.create({
-  animate: function(scAnimation) {
-    this.render();
-    scAnimation.render();
-    this.get('tiObject').animate(scAnimation.get('tiObject'));
-    
+  animate: function(animation) {
+    this.get('tiObject').animate(animation.get('tiObject'));
     return this;
   }
 });

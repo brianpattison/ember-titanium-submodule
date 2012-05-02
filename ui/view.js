@@ -26,7 +26,6 @@ var View = Wrapper.extend(Animatable, Hideable, {
     childViews.push(view);
 
     if (this.get('isRendered')) {
-      view.render();
       this.addChildView(this.get('tiObject'), view);
     }
 
@@ -50,22 +49,17 @@ var View = Wrapper.extend(Animatable, Hideable, {
   },
 
   render: function() {
-    var tiObject = this.createObject(), childViews = this.get('childViews');
-
-    if (this.get('isRendered')) { return this; }
-
-    this._super();
+    var tiObject = this._super(), childViews = this.get('childViews');
 
     var childViewInstances = [];
     for (var i = 0; i < childViews.length; i++) {
       var childView = childViewInstances[i] = this.createChildView(childViews[i]);
-      childView.render();
       this.addChildView(tiObject, childView);
     }
 
     this.set('childViews', childViewInstances);
 
-    return this;
+    return tiObject;
   },
   
   destroy: function() {
