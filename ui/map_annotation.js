@@ -1,7 +1,7 @@
 var View = require('/lib/em_ti/ui/view');
 
 var MapAnnotation = View.extend({
-  tiOptions: 'animate image latitude longitude leftButton leftView pinImage pincolor:pinColorConstant rightButton rightView subtitle subtitleid title titleid'.split(' '),
+  tiOptions: 'animate image latitude longitude leftButton leftView pinImage pincolor:pinColorConstant rightButton rightView subtitle subtitleid title titleid'.split(/\s+/),
   tiConstantMappings: {
     pinColor: {
       red: Ti.Map.ANNOTATION_RED,

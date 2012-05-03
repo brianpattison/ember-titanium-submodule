@@ -3,8 +3,8 @@ var View      = require('/lib/em_ti/ui/view'),
     Constants = require('/lib/em_ti/mixins/constants');
 
 var TextField = View.extend(Focusable, {
-  tiOptions: 'autocapitalization:autocapitalizationConstant autocorrect borderStyle:borderStyleConstant clearButtonMode:clearButtonModeConstant clearOnEdit color editable enabled hintText keyboardToolbar keyboardToolbarColor keyboardToolbarHeight keyboardType:keyboardTypeConstant leftButton leftButtonMode leftButtonPadding minimumFontSize paddingLeft paddingRight passwordMask returnKeyType:returnKeyTypeConstant rightButton rightButtonMode rightButtonPadding suppressReturn value verticalAlign:verticalAlignConstant'.split(' '),
-  tiEvents: 'change hasText return'.split(' '),
+  tiOptions: 'autocapitalization:autocapitalizationConstant autocorrect borderStyle:borderStyleConstant clearButtonMode:clearButtonModeConstant clearOnEdit color editable enabled hintText keyboardToolbar keyboardToolbarColor keyboardToolbarHeight keyboardType:keyboardTypeConstant leftButton leftButtonMode leftButtonPadding minimumFontSize paddingLeft paddingRight passwordMask returnKeyType:returnKeyTypeConstant rightButton rightButtonMode rightButtonPadding suppressReturn value verticalAlign:verticalAlignConstant'.split(/\s+/),
+  tiEvents: 'change hasText return'.split(/\s+/),
   tiConstantMappings: {
     autocapitalization: Constants.AUTOCAPITALIZATION_CONSTANTS,
     borderStyle: {
@@ -27,9 +27,6 @@ var TextField = View.extend(Focusable, {
       top: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP
     }
   },
-  
-  borderStyle: 'none',
-  clearButtonMode: 'focus',
   
   createTiObject: function(options) {
     return Ti.UI.createTextField(options);

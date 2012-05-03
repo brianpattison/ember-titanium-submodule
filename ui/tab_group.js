@@ -2,8 +2,8 @@ var View      = require('/lib/em_ti/ui/view'),
     Openable  = require('/lib/em_ti/mixins/openable');
 
 var TabGroup = View.extend(Openable, {
-  tiOptions: 'activeTab allowUserCustomization barColor editButtonTitle tabs windowSoftInputMode'.split(' '),
-  tiEvents: 'blur close:closed focus open:opened'.split(' '),
+  tiOptions: 'activeTab allowUserCustomization barColor editButtonTitle tabs windowSoftInputMode'.split(/\s+/),
+  tiEvents: 'blur close:closed focus open:opened'.split(/\s+/),
   
   addChildView: function(tiObject, childView) {
     if (childView instanceof View) {

@@ -1,7 +1,7 @@
 var View = require('/lib/em_ti/ui/view');
 
 var Button = View.extend({
-  tiOptions: 'color enabled font image selectedColor style:styleConstant systemButton title titleid'.split(' '),
+  tiOptions: 'color enabled font image selectedColor style:styleConstant systemButton title titleid'.split(/\s+/),
   tiConstantMappings: {
     style: {
       bar: Titanium.UI.iPhone.SystemButtonStyle.BAR,

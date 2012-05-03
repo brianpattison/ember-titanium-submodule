@@ -1,8 +1,8 @@
 var View = require('/lib/em_ti/ui/view');
 
 var MapView = View.extend({
-  tiOptions: 'animate annotations location mapType:mapTypeConstant region regionFit userLocation'.split(' '),
-  tiEvents: 'complete error loading regionChanged'.split(' '),
+  tiOptions: 'animate annotations location mapType:mapTypeConstant region regionFit userLocation'.split(/\s+/),
+  tiEvents: 'complete error loading regionChanged'.split(/\s+/),
   tiConstantMappings: {
     mapType: {
       standard: Ti.Map.STANDARD_TYPE,
@@ -12,6 +12,7 @@ var MapView = View.extend({
   },
   
   addChildView: function(tiObject, childView) {
+    childView.set('parentView', this);
     tiObject.addAnnotation(childView.get('tiObject'));
   },
   

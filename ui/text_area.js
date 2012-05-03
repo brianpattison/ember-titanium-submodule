@@ -3,8 +3,8 @@ var View      = require('/lib/em_ti/ui/view'),
     Constants = require('/lib/em_ti/mixins/constants');
 
 var TextField = View.extend(Focusable, {
-  tiOptions: 'autoLink autocapitalization:autocapitalizationConstant color editable enabled keyboardToolbar keyboardToolbarColor keyboardToolbarHeight returnKeyType:returnKeyTypeConstant suppressReturn value'.split(' '),
-  tiEvents: 'change return selected'.split(' '),
+  tiOptions: 'autoLink autocapitalization:autocapitalizationConstant color editable enabled keyboardToolbar keyboardToolbarColor keyboardToolbarHeight returnKeyType:returnKeyTypeConstant suppressReturn value'.split(/\s+/),
+  tiEvents: 'change return selected'.split(/\s+/),
   tiConstantMappings: {
     autocapitalization: Constants.AUTOCAPITALIZATION_CONSTANTS,
     keyboardType: Constants.KEYBOARD_TYPE_CONSTANTS,

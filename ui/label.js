@@ -1,7 +1,7 @@
 var View  = require('/lib/em_ti/ui/view');
 
 var Label = View.extend({
-  tiOptions: 'autoLink backgroundPaddingBottom backgroundPaddingLeft backgroundPaddingRight backgroundPaddingTop color ellipsize font highlightedColor html minimumFontSize shadowColor shadowOffset text textAlign:textAlignConstant textid wordWrap'.split(' '),
+  tiOptions: 'autoLink backgroundPaddingBottom backgroundPaddingLeft backgroundPaddingRight backgroundPaddingTop color ellipsize font highlightedColor html minimumFontSize shadowColor shadowOffset text textAlign:textAlignConstant textid wordWrap'.split(/\s+/),
   tiConstantMappings: {
     textAlign: {
       center: Ti.UI.TEXT_ALIGNMENT_CENTER,

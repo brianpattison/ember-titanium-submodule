@@ -1,7 +1,7 @@
 var View = require('/lib/em_ti/ui/view');
 
 var Tab = View.extend({
-  tiOptions: 'badge icon title window'.split(' '),
+  tiOptions: 'badge icon title window'.split(/\s+/),
 
   createTiObject: function(options) {
     return Ti.UI.createTab(options);
