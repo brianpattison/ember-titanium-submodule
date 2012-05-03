@@ -9,4 +9,18 @@ var Animation = Wrapper.extend({
   }
 });
 
+if (Ti.Platform.osname === 'iphone') {
+  Animation.reopen({
+    tiOptions: 'curve:curveConstant'.split(/\s+/),
+    tiConstantMappings: {
+      curve: {
+        easeIn: Ti.UI.iOS.ANIMATION_CURVE_EASE_IN,
+        easeInOut: Ti.UI.iOS.ANIMATION_CURVE_EASE_IN_OUT,
+        easeOut: Ti.UI.iOS.ANIMATION_CURVE_EASE_OUT,
+        linear: Ti.UI.iOS.ANIMATION_CURVE_LINEAR
+      }
+    }
+  });
+}
+
 module.exports = Animation;
