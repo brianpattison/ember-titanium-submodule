@@ -13,6 +13,9 @@ console.error = function(message) {
   Ti.API.warn(message);
 };
 
+var ENV = {};
+ENV.CP_DEFAULT_CACHEABLE = true;
+
 (function() {
 /*global __fail__*/
 
@@ -203,7 +206,6 @@ Ember.VERSION = '0.9.7.1';
   settings.
 */
 Ember.ENV = 'undefined' === typeof ENV ? {} : ENV;
-
 
 // ..........................................................
 // BOOTSTRAP
