@@ -9,7 +9,7 @@ var Animation = Wrapper.extend({
   }
 });
 
-if (Ti.Platform.osname === 'iphone' || Ti.Platform.osname === 'ipad') {
+if (Ti.Platform.name === 'iPhone OS') {
   Animation.reopen({
     tiOptions: 'curve:curveConstant'.split(/\s+/),
     tiConstantMappings: {

@@ -91,13 +91,14 @@ var Wrapper = Ember.Object.extend({
       if (optionName.indexOf(':') !== -1) {
         tiOptionName = optionName.split(':')[0];
       }
-      // Assign the Ti Object if the value is an SC wrapped Ti Object
+      // Assign the Ti Object if the value is an Ember wrapped Ti Object
       if (Wrapper.detect(optionVal)) {
         optionVal = optionVal.create();
       }
       if (optionVal instanceof Wrapper) {
         // This is only for Tabs (I think), so set the tab as the parent view of the window
-        optionVal.set('parentView', this);
+        optionVal.set('parentView', self);
+        self.set(tiOptionName, optionVal);
         tiObjectOptions[tiOptionName] = optionVal.get('tiObject');
       } else {
         tiObjectOptions[tiOptionName] = optionVal;
